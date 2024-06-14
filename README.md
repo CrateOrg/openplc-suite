@@ -3,7 +3,7 @@ OpenPLC Suite -- Debian 12 + XFCE + OpenPLC + OpenPLC Editor + ScadaBR + FUXA
 
 ## SYNOPSIS
 
-This is a collection of scripts that helps you create a OpenPLC based OS.  
+This is a collection of scripts that helps you create an OpenPLC based OS.  
 A one-size-fits all PLC OS based on Debian 12 with XFCE.  
 It includes OpenPLC, OpenPLC Editor, ScadaBR and FUXA.
 
