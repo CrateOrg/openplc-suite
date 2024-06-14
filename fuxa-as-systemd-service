@@ -1,0 +1,39 @@
+#!/bin/sh
+#info: Install FUXA as systemd service
+
+set -e
+
+error() {
+    echo "ERROR: $1" >&2
+    exit 1
+}
+
+if [ "$(id -u)" -ne 0 ]; then
+    error "This script must be run as root!"
+fi
+
+APP_NAME=fuxa
+[ -n "$(command -v "$APP_NAME")" ] || error "fuxa is not installed"
+FUXA_BIN=$(command -v "$APP_NAME")
+SYSTEMD_SERVICE="/etc/systemd/system/$APP_NAME.service"
+
+echo "[Unit]
+Description=$APP_NAME Service
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=$FUXA_BIN
+
+[Install]
+WantedBy=multi-user.target
+" >"$SYSTEMD_SERVICE"
+
+chmod u=rwx,g=rx,o=rx "$SYSTEMD_SERVICE"
+
+systemctl daemon-reload || error "systemctl daemon-reload"
+systemctl enable $APP_NAME.service || error "systemctl enable $APP_NAME"
+systemctl start $APP_NAME || error "systemctl start $APP_NAME"

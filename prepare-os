@@ -1,0 +1,26 @@
+#!/bin/sh
+#info: Prepare the OS for installation
+
+set -e
+
+error() {
+    echo "ERROR: $1" >&2
+    exit 1
+}
+
+if [ "$(id -u)" -ne 0 ]; then
+    error "This script must be run as root!"
+fi
+
+# test internet connection by pinnging debian.org
+echo "Testing internet connection"
+ping -c 1 debian.org 1>/dev/null || error "No internet connection"
+
+# remove cups and avahi-daemon (useless open ports)
+echo "Removing cups and avahi-daemon"
+apt-get -qqy remove cups-daemon avahi-daemon system-config-printer ||
+    error "Failed to remove cups and avahi-daemon"
+
+# install chromium, useful as kiosk browser
+echo "Installing chromium"
+apt-get -qqy install chromium || error "Failed to install chromium"
