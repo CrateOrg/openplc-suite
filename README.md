@@ -24,7 +24,9 @@ Default web-application credentials:
 ## BUILD REQUIREMENTS
 
 Gather all required files by downloading them from the following locations.  
-See "Version" column in the table above for the correct version. With correct version a version that is tested and works together with all the other applications.
+See "Version" column in the table above for the correct version. With correct
+version a version that is tested and works together with all the other
+applications.
 
 | Tools          | Download                                                       | Version |
 |----------------|----------------------------------------------------------------|---------|
